@@ -419,6 +419,21 @@
                         satisfied = true;
                         
                         break;
+                    case ConsoleKey.F:
+                        Console.WriteLine("quale file cerchi :");
+                        string? file =Console.ReadLine();
+
+                        for (int i = 0; i < elementQuantity; i++)
+                        {
+                            if (Path.GetFileNameWithoutExtension(files[0, i]) == file)
+                            {
+                                pageStart=i;
+                                pageLenght = 1;
+                                pageNumber = i+1;
+                                break;
+                            }
+                        }
+                        break;
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.RightArrow:
                     case ConsoleKey.Enter:
