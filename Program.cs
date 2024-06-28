@@ -18,7 +18,7 @@
             {
             Console.WriteLine("inserica la estensione desiderata:  ");
             string? extension = Console.ReadLine();
-            while (string.IsNullOrWhiteSpace(extension))
+            while (extension==null)
             {
                 Console.WriteLine("nessun valore estensione \n inserica la estensione desiderata o exit per uscire");
                 extension = Console.ReadLine();
