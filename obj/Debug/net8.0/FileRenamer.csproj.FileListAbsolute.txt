@@ -1,0 +1,14 @@
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\bin\Debug\net8.0\FileRenamer.exe
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\bin\Debug\net8.0\FileRenamer.deps.json
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\bin\Debug\net8.0\FileRenamer.runtimeconfig.json
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\bin\Debug\net8.0\FileRenamer.dll
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\bin\Debug\net8.0\FileRenamer.pdb
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\obj\Debug\net8.0\FileRenamer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\obj\Debug\net8.0\FileRenamer.AssemblyInfoInputs.cache
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\obj\Debug\net8.0\FileRenamer.AssemblyInfo.cs
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\obj\Debug\net8.0\FileRenamer.csproj.CoreCompileInputs.cache
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\obj\Debug\net8.0\FileRenamer.dll
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\obj\Debug\net8.0\refint\FileRenamer.dll
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\obj\Debug\net8.0\FileRenamer.pdb
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\obj\Debug\net8.0\FileRenamer.genruntimeconfig.cache
+C:\Users\Felipe.Ramos\source\repos\FindAndRename\obj\Debug\net8.0\ref\FileRenamer.dll
