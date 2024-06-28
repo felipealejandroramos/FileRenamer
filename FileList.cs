@@ -64,7 +64,7 @@
         {
             if (!System.IO.Path.Exists(file) && file != null)
             {
-                Console.WriteLine($"il file {Path.GetFileName(file)} è stato cancellato o spostato continuare con la esecuzione? \n Si            No ");
+                Console.WriteLine($"il file {Path.GetFileName(file)} è stato cancellato o spostato continuare con la esecuzione? \n Si        No ");
                 bool resolved = false;
                 while (!resolved)
                 {
@@ -456,7 +456,7 @@
                         string? input = Console.ReadLine();
                         if (int.TryParse(input, out number))
                         {
-                            if (number >= elementQuantity && number < 0)
+                            if (number >= elementQuantity || number <= 0)
                             {
                                 number = filesNumber;
                             }
