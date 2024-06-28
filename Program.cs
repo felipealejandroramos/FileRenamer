@@ -30,7 +30,7 @@
             Console.WriteLine("i file con la estensione desiderata sono i seguenti: ");
             filelist.LayoutList();
         
-                Console.WriteLine(" Proseguire con la rinomina di questi file: \n si   no");
+                Console.WriteLine("Proseguire con la rinomina di questi file: \n si   no");
 
                 string? answer = Console.ReadLine();
 

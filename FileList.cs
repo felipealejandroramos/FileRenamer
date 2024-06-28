@@ -412,11 +412,12 @@
 
                 Console.WriteLine($"Sono stati trovati {filesNumber} Numero Pagina {pageNumber}/{(filesNumber + pageLenght - 1) / pageLenght} lunghezza pagina {pageLenght}");
                 Console.WriteLine($"L: aumenta la dimensione della pagina   ->/giu/enter: passare alla prossima    <-/su/bakspace: per tornare alla precedente   Q/esc: per uscire");
-                switch (Console.ReadKey().Key)
+                switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.Q:
                     case ConsoleKey.Escape:
                         satisfied = true;
+                        
                         break;
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.RightArrow:
