@@ -254,7 +254,7 @@
                             Console.WriteLine($" Il file {newName} è stato sovrascritto ");
                             for (int i = 0; i < files.Length / 2; i++)
                             {
-                                if (files[0, i]!=null && files[0, i] == System.IO.Path.Combine([System.IO.Path.GetDirectoryName(files[0, i])!, newName]))
+                                if (files[0, i] != null && files[0, i] == System.IO.Path.Combine([System.IO.Path.GetDirectoryName(files[0, i])!, newName]))
                                 {
                                     files[0, i] = "";
                                 }
@@ -376,7 +376,7 @@
             int filesNumber = 0;
             int pageNumber = 1;
             int fileNumber;
-            int nextNulls ;
+            int nextNulls;
             for (int i = 0; i < elementQuantity; i++)
             {
                 if (files[0, i] != null)
@@ -411,33 +411,61 @@
                 }
 
                 Console.WriteLine($"Sono stati trovati {filesNumber} Numero Pagina {pageNumber}/{(filesNumber + pageLenght - 1) / pageLenght} lunghezza pagina {pageLenght}");
-                Console.WriteLine($"L: aumenta la dimensione della pagina   ->/giu/enter: passare alla prossima    <-/su/bakspace: per tornare alla precedente   Q/esc: per uscire");
+                Console.WriteLine($"L: aumenta la dimensione della pagina   ->/giu/enter: passare alla prossima    <-/su/bakspace: per tornare alla precedente   Q/esc: per uscire F:per cercare un file T:per vedere le estensioni");
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.Q:
                     case ConsoleKey.Escape:
                         satisfied = true;
-                        
+
                         break;
                     case ConsoleKey.F:
                         Console.WriteLine("quale file cerchi :");
-                        string? file =Console.ReadLine();
+                        string? file = Console.ReadLine();
 
                         for (int i = 0; i < elementQuantity; i++)
                         {
                             if (Path.GetFileNameWithoutExtension(files[0, i]) == file)
                             {
-                                pageStart=i;
+                                pageStart = i;
                                 pageLenght = 1;
-                                pageNumber = i+1;
+                                pageNumber = i + 1;
                                 break;
                             }
                         }
                         break;
+                    case ConsoleKey.T:
+                        List<string> tipes=new List<string>() ;
+                        tipes.Add(Path.GetExtension(files[0, 0]));
+                        bool found;
+                        for (int i = 1; i < elementQuantity; i++)
+                        {
+                            found = false;
+                            foreach (string tipe in tipes)
+                            {
+                                if(string.Equals( Path.GetExtension(files[0, i]),tipe) )
+                                {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if( !found)
+                            {
+                                tipes.Add(Path.GetExtension(files[0, i]));
+                            }
+                        }
+                        Console.WriteLine("le estensioni presenti sono");
+                        foreach (var tipe in tipes)
+                        {
+                            Console.Write($" {tipe} ");
+                        }
+                        Console.ReadKey(true);
+
+                        break;
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.RightArrow:
                     case ConsoleKey.Enter:
-                        nextNulls = CalculateNulls(true, pageLenght, fileNumber+pageStart);
+                        nextNulls = CalculateNulls(true, pageLenght, fileNumber + pageStart);
                         if (fileNumber + pageStart + nextNulls < elementQuantity && nextNulls + pageStart + 1 != elementQuantity)
                         {
                             pageStart += fileNumber;
