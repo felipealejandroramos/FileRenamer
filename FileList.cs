@@ -93,12 +93,11 @@
         /// restituisce un array di stringhe che rapresentano i percorsi dei file. 
         /// </summary>
         /// <returns> un array di stringhe o null se non e stato inizializato files</returns>
-        public string[,] GetFiles()
+        public string[,]? GetFiles()
         {
             if (files != null)
                 return files;
-            string[,] vuoto = new string[0, 0];
-            return vuoto;
+            return null;
         }
         /// <summary>
         /// modifica il campo extension che seve per filrare i file
@@ -369,6 +368,7 @@
         /// </summary>
         public void LayoutList()
         {
+
             bool satisfied = false;
             int pageStart = 0;
             int pageLenght = 4;
@@ -376,7 +376,7 @@
             int filesNumber = 0;
             int pageNumber = 1;
             int fileNumber;
-            int nextNulls = 0;
+            int nextNulls ;
             for (int i = 0; i < elementQuantity; i++)
             {
                 if (files[0, i] != null)
@@ -513,7 +513,9 @@
             FileList listChecker = new(path);
             listChecker.SetExtension(extension);
             listChecker.FilterFiles();
-            string[,] listCheckerFiles = listChecker.GetFiles();
+            string[,]? listCheckerFiles = listChecker.GetFiles();
+            if (listCheckerFiles == null)
+                return true;
 
             for (int i = 0; i < listCheckerFiles.Length / 2; i++)
             {
@@ -525,7 +527,7 @@
                     {
                         listCheckerFiles[0, i] = files[0, j];
                         listCheckerFiles[1, i] = files[1, j];
-                        found = true;
+
                         break;
                     }
                     else if (j == (files.Length / 2) - 1 && !found)
