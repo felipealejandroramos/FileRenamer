@@ -255,7 +255,7 @@
                             Console.WriteLine($" Il file {newName} è stato sovrascritto ");
                             for (int i = 0; i < files.Length / 2; i++)
                             {
-                                if (files[0, i] == System.IO.Path.Combine([System.IO.Path.GetDirectoryName(files[0, i])!, newName]))
+                                if (files[0, i]!=null && files[0, i] == System.IO.Path.Combine([System.IO.Path.GetDirectoryName(files[0, i])!, newName]))
                                 {
                                     files[0, i] = "";
                                 }
@@ -376,7 +376,7 @@
             int filesNumber = 0;
             int pageNumber = 1;
             int fileNumber;
-            int nulls = 0;
+            int nextNulls = 0;
             for (int i = 0; i < elementQuantity; i++)
             {
                 if (files[0, i] != null)
@@ -421,8 +421,8 @@
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.RightArrow:
                     case ConsoleKey.Enter:
-                        nulls = CalculateNulls(true, pageLenght, pageStart);
-                        if (fileNumber + pageStart + 1 <= elementQuantity && nulls + pageStart + 1 != elementQuantity)
+                        nextNulls = CalculateNulls(true, pageLenght, fileNumber+pageStart);
+                        if (fileNumber + pageStart + nextNulls < elementQuantity && nextNulls + pageStart + 1 != elementQuantity)
                         {
                             pageStart += fileNumber;
                             pageNumber++;
@@ -436,8 +436,8 @@
                     case ConsoleKey.UpArrow:
                     case ConsoleKey.LeftArrow:
                     case ConsoleKey.Backspace:
-                        nulls = CalculateNulls(false, pageLenght, pageStart);
-                        if (pageStart - (nulls + pageLenght) <= 0)
+                        nextNulls = CalculateNulls(false, pageLenght, pageStart);
+                        if (pageStart - (nextNulls + pageLenght) <= 0)
                         {
                             pageNumber = 1;
                             pageStart = 0;
@@ -473,19 +473,30 @@
         /// </summary>
         /// <param name="foward"></param>
         /// <param name="pageLenght"></param>
-        /// <param name="pageStart"></param>
+        /// <param name="startPoint"></param>
         /// <returns></returns>
-        private int CalculateNulls(bool foward, int pageLenght, int pageStart)
+        private int CalculateNulls(bool foward, int pageLenght, int startPoint)
         {
             int nulls = 0;
 
             int elementQuantity = files.Length / 2;
-            pageStart = foward ? pageStart + pageLenght : pageStart;
             for (int fileNumber = 0; fileNumber < (nulls + pageLenght); fileNumber++)
             {
-                if (pageStart >= 0 && pageStart < elementQuantity && ((fileNumber + pageStart < elementQuantity && string.IsNullOrWhiteSpace(files[0, fileNumber + pageStart]) && foward) || (pageStart - 1 - fileNumber > 0 && string.IsNullOrWhiteSpace(files[0, pageStart - 1 - fileNumber]) && !foward)))
+                switch (foward)
                 {
-                    nulls++;
+                    case true:
+                        if (startPoint < elementQuantity && fileNumber + startPoint < elementQuantity && string.IsNullOrWhiteSpace(files[0, fileNumber + startPoint]))
+                        {
+                            nulls++;
+                        }
+                        break;
+
+                    case false:
+                        if (startPoint >= 0 && startPoint - 1 - fileNumber > 0 && string.IsNullOrWhiteSpace(files[0, startPoint - 1 - fileNumber]))
+                        {
+                            nulls++;
+                        }
+                        break;
                 }
 
             }
