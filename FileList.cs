@@ -410,7 +410,7 @@
                     Console.WriteLine("      nessun file trovato    ");
                 }
 
-                Console.WriteLine($"Sono stati trovati {filesNumber} Numero Pagina {pageNumber}/{(filesNumber + pageLenght - 1) / pageLenght} lunghezza pagina {pageLenght}");
+                Console.WriteLine($"Sono stati trovati {filesNumber} File Numero Pagina {pageNumber}/{(filesNumber + pageLenght - 1) / pageLenght} lunghezza pagina {pageLenght}");
                 Console.WriteLine($"L: aumenta la dimensione della pagina   ->/giu/enter: passare alla prossima    <-/su/bakspace: per tornare alla precedente   Q/esc: per uscire F:per cercare un file T:per vedere le estensioni");
                 switch (Console.ReadKey(true).Key)
                 {
@@ -422,20 +422,24 @@
                     case ConsoleKey.F:
                         Console.WriteLine("quale file cerchi :");
                         string? file = Console.ReadLine();
-
+                        int nulls = 0;
                         for (int i = 0; i < elementQuantity; i++)
                         {
+                            if (files[0, i] == null)
+                            {
+                                nulls++;
+                            }
                             if (Path.GetFileNameWithoutExtension(files[0, i]) == file)
                             {
                                 pageStart = i;
                                 pageLenght = 1;
-                                pageNumber = i + 1;
+                                pageNumber = i + 1 - nulls;
                                 break;
                             }
                         }
                         break;
                     case ConsoleKey.T:
-                        List<string> tipes=new List<string>() ;
+                        List<string> tipes = new List<string>();
                         tipes.Add(Path.GetExtension(files[0, 0]));
                         bool found;
                         for (int i = 1; i < elementQuantity; i++)
@@ -443,13 +447,13 @@
                             found = false;
                             foreach (string tipe in tipes)
                             {
-                                if(string.Equals( Path.GetExtension(files[0, i]),tipe) )
+                                if (string.Equals(Path.GetExtension(files[0, i]), tipe))
                                 {
                                     found = true;
                                     break;
                                 }
                             }
-                            if( !found)
+                            if (!found)
                             {
                                 tipes.Add(Path.GetExtension(files[0, i]));
                             }
@@ -488,8 +492,11 @@
                         }
                         else
                         {
+                            do
+                            {
+                                pageStart -= pageLenght;
+                            } while (files[0, pageStart] == null);
                             pageNumber--;
-                            pageStart -= pageLenght;
                         }
 
                         break;
