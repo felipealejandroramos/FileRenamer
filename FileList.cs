@@ -412,7 +412,7 @@
                 }
 
                 Console.WriteLine($"Sono stati trovati {filesNumber} File Numero Pagina {pageNumber}/{(filesNumber + pageLenght - 1) / pageLenght} lunghezza pagina {pageLenght}");
-                Console.WriteLine($"L: aumenta la dimensione della pagina   ->/giu/enter: passare alla prossima    <-/su/bakspace: per tornare alla precedente   Q/esc: per uscire F:per cercare un file T:per vedere le estensioni");
+                Console.WriteLine($"L: aumenta la dimensione della pagina   ->/giu/enter: passare alla prossima    <-/su/bakspace: per tornare alla precedente   Q/esc: per uscire F:per cercare un file T:per vedere le estensioni E:esludi/ri includi file dalla rinomina");
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.Q:
@@ -439,6 +439,33 @@
                             }
                         }
                         break;
+                    case ConsoleKey.E:
+                        Console.WriteLine("quale file vuoi escludere dalla rinomina :");
+                        file = Console.ReadLine();
+                        nulls = 0;
+                        for (int i = 0; i < elementQuantity; i++)
+                        {
+                            if (files[0, i] == null)
+                            {
+                                nulls++;
+                            }
+                            if (file != null && Path.GetFileNameWithoutExtension(files[0, i]) == file)
+                            {
+                                files[1, i] = files[1, i] == "renamed" ? "unrenamed" : "renamed";
+                                if (files[1, i].Equals("renamed"))
+                                {
+                                    Console.WriteLine("file escluso");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("file incluso");
+                                }
+                                Thread.Sleep(500);
+                                break;
+                            }
+                        }
+                        break;
+
                     case ConsoleKey.T:
                         List<string> types = [Path.GetExtension(files[0, 0])];
                         bool found;
@@ -470,6 +497,19 @@
                             satisfied = true;
                         }
 
+                        break;
+                    case ConsoleKey.P:
+
+                        int page;
+                        Console.WriteLine("seleziona una pagina");
+                        if (int.TryParse(Console.ReadLine(), out page) && page > 0 && page <= (filesNumber + pageLenght - 1) / pageLenght)
+                        {//[n,f,n,n,f,f,n,n,n,f,n,f,n,f,n]
+                            nulls = CalculateNulls(true, pageLenght * (page - 1), 0);
+
+                            pageNumber = page;
+                            pageStart = ((page - 1) * pageLenght) + nulls;
+
+                        }
                         break;
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.RightArrow:
