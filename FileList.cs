@@ -87,6 +87,7 @@
                             break;
                     }
                 }
+
             }
         }
         /// <summary>
@@ -429,7 +430,7 @@
                             {
                                 nulls++;
                             }
-                            if (Path.GetFileNameWithoutExtension(files[0, i]) == file)
+                            if (file != null && Path.GetFileNameWithoutExtension(files[0, i]) == file)
                             {
                                 pageStart = i;
                                 pageLenght = 1;
@@ -439,15 +440,14 @@
                         }
                         break;
                     case ConsoleKey.T:
-                        List<string> tipes = new List<string>();
-                        tipes.Add(Path.GetExtension(files[0, 0]));
+                        List<string> types = [Path.GetExtension(files[0, 0])];
                         bool found;
                         for (int i = 1; i < elementQuantity; i++)
                         {
                             found = false;
-                            foreach (string tipe in tipes)
+                            foreach (string type in types)
                             {
-                                if (string.Equals(Path.GetExtension(files[0, i]), tipe))
+                                if (string.Equals(Path.GetExtension(files[0, i]), type))
                                 {
                                     found = true;
                                     break;
@@ -455,15 +455,20 @@
                             }
                             if (!found)
                             {
-                                tipes.Add(Path.GetExtension(files[0, i]));
+                                types.Add(Path.GetExtension(files[0, i]));
                             }
                         }
                         Console.WriteLine("le estensioni presenti sono");
-                        foreach (var tipe in tipes)
+                        foreach (var tipe in types)
                         {
                             Console.Write($" {tipe} ");
                         }
-                        Console.ReadKey(true);
+                        ConsoleKey key = Console.ReadKey(true).Key;
+                        if (key == ConsoleKey.Escape || key == ConsoleKey.Q)
+                        {
+                            Console.WriteLine("");
+                            satisfied = true;
+                        }
 
                         break;
                     case ConsoleKey.DownArrow:
@@ -508,7 +513,7 @@
                         {
                             if (number >= elementQuantity || number <= 0)
                             {
-                                number = filesNumber;
+                                number = number <= 0 ? 1 : filesNumber;
                             }
                             pageNumber = 1;
                             pageStart = 0;
